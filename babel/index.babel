@@ -1,0 +1,228 @@
+var UserChoice = React.createClass({
+  compareMethod: function(choice) {
+    this.props.compare(choice);
+  },
+  render: function() {
+    return (
+      <div>
+        <div className="row">
+          <div
+            title="Rock"
+            className="col s2 offset-s3 center-align"
+            onClick={() => this.compareMethod("Rock")}
+          >
+            <button className="btn btn-floating btn-large pulse valign-wrapper hoverable">
+              <span className="symbol valign center-block">👊</span>
+            </button>
+          </div>
+          <div
+            title="Paper"
+            className="col s2 center-align"
+            onClick={() => this.compareMethod("Paper")}
+          >
+            <button className="btn-floating btn-large pulse valign-wrapper hoverable">
+              <span className="symbol valign center-block">✋️</span>
+            </button>
+          </div>
+          <div
+            title="Scissors"
+            className="col s2 center-align"
+            onClick={() => this.compareMethod("Scissors")}
+          >
+            <button className="btn-floating btn-large pulse valign-wrapper hoverable">
+              <span className="symbol valign center-block">✌️</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+});
+
+var ComputerChoice = React.createClass({
+  render: function() {
+    return (
+      <div>
+        <br />
+        <div className="row">
+          <h5 className="col s12 center-align">
+            <span className="title">Computer Chose:</span>{" "}
+            {this.props.computerChoice}
+          </h5>
+        </div>
+      </div>
+    );
+  }
+});
+
+var Result = React.createClass({
+  render: function() {
+    return (
+      <div>
+        <div className="row">
+          <h5 className="col s12 center-align">
+            <span className="title">Result:</span> {this.props.result}
+          </h5>
+        </div>
+      </div>
+    );
+  }
+});
+
+var Score = React.createClass({
+  render: function() {
+    return (
+      <div>
+      <br/>
+      <div className="scoreBox">
+        <div className="row">
+          <div className="col s12 center-align">
+            <h5>
+              <span className="title">Score</span>
+            </h5>
+            <br />
+            <div className="row score">
+              Computer: {this.props.gameScore.computerScore}
+            </div>
+            <div className="row score">
+              You: {this.props.gameScore.userScore}
+            </div>
+          </div>
+        </div>
+      </div>
+        </div>
+    );
+  }
+});
+
+var Application = React.createClass({
+  getInitialState: function() {
+    return {
+      computerChoice: "",
+      userChoice: "",
+      result: "",
+      winner: "",
+      visible: false,
+      score: {
+        userScore: 0,
+        computerScore: 0
+      }
+    };
+  },
+  compare: function(choice1) {
+    var choice2 = Math.random();
+    let newScore = Object.assign({}, this.state.score);
+    if (choice2 >= 0 && choice2 <= 0.33) {
+      choice2 = "Paper";
+    } else if (choice2 >= 0.34 && choice2 <= 0.66) {
+      choice2 = "Rock";
+    } else choice2 = "Scissors";
+
+    this.setState({
+      userChoice: choice1,
+      computerChoice: choice2
+    });
+
+    if (choice1 === choice2) {
+      this.setState({
+        result: "Tie",
+        winner: "",
+        visible: true
+      });
+    } else {
+      if (choice1 === "Rock") {
+        if (choice2 === "Scissors") {
+          newScore.userScore = this.state.score.userScore + 1;
+          newScore.computerScore = this.state.score.computerScore;
+          this.setState({
+            result: "You Win!",
+            winner: "User",
+            score: newScore,
+            visible: true
+          });
+        } else {
+          newScore.userScore = this.state.score.userScore;
+          newScore.computerScore = this.state.score.computerScore + 1;
+          this.setState({
+            result: "Computer Wins",
+            winner: "Computer",
+            score: newScore,
+            visible: true
+          });
+        }
+      }
+
+      if (choice1 === "Scissors") {
+        if (choice2 === "Paper") {
+          newScore.userScore = this.state.score.userScore + 1;
+          newScore.computerScore = this.state.score.computerScore;
+          this.setState({
+            result: "You Win!",
+            winner: "User",
+            score: newScore,
+            visible: true
+          });
+        } else {
+          newScore.userScore = this.state.score.userScore;
+          newScore.computerScore = this.state.score.computerScore + 1;
+          this.setState({
+            result: "Computer Wins",
+            winner: "Computer",
+            score: newScore,
+            visible: true
+          });
+        }
+      }
+
+      if (choice1 === "Paper") {
+        if (choice2 === "Scissors") {
+          newScore.userScore = this.state.score.userScore;
+          newScore.computerScore = this.state.score.computerScore + 1;
+          this.setState({
+            result: "Computer Wins",
+            winner: "Computer",
+            score: newScore,
+            visible: true
+          });
+        } else {
+          newScore.userScore = this.state.score.userScore + 1;
+          newScore.computerScore = this.state.score.computerScore;
+          this.setState({
+            result: "You Win!",
+            winner: "User",
+            score: newScore,
+            visible: true
+          });
+        }
+      }
+    }
+  },
+  render: function() {
+    var showComputer, showResults;
+    if (this.state.visible === true) {
+      showComputer = (
+        <ComputerChoice computerChoice={this.state.computerChoice} />
+      );
+      showResults = (
+        <Result result={this.state.result} winner={this.state.winner} />
+      );
+    } else {
+      showComputer = <div className="row addPadding" />;
+      showResults = <div className="row addPadding" />;
+    }
+    return (
+      <div className="container">
+        <div className="wrapper valign-wrapper">
+          <div className="valign center">
+            <UserChoice compare={this.compare} />
+            {showComputer}
+            {showResults}
+            <Score gameScore={this.state.score} />
+          </div>
+        </div>
+      </div>
+    );
+  }
+});
+
+React.render(<Application />, document.getElementById("app"));

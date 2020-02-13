@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width">
+
+    <title>Rock, Paper, Scissors</title>
+
+    <style>
+       *{margin:0;padding:0;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}::selection{background:#fb9fe5;text-shadow:none}a{color:#0088CC;text-decoration:none;outline:0}a:hover{color:#005580}a img{border:none}img{max-width:100%}html{font-size:100%}body{padding:5%;font:300 1.25em/1.6 monospace;background:#fff;color:#000;}h1{font-family:"Helvetica Neue",sans-serif;line-height:1;font-weight:300;margin-bottom:1em;}.game{padding:2em;background:#eee;}
+    </style>
+</head>
+<body>
+
+<h1>Rock, Paper, Scissors</h1>
+
+<div class="game">
+
+    <script>
+        var userChoice = prompt("Do you choose rock, paper or scissors?");
+        if (! userChoice) {
+            document.write("<p>Please enter a valid answer!</p>");
+        } else {
+            document.write("<p>Player 1:" + " " + userChoice + "</p>");
+        }
+        var computerChoice = Math.random();
+        if (computerChoice < 0.34) {
+            computerChoice = "rock";
+        } else if(computerChoice <= 0.67) {
+            computerChoice = "paper";
+        } else {
+            computerChoice = "scissors";
+        }
+        document.write("<p>Computer:" + " " + computerChoice + "</p>");
+        var compare = function(choice1,choice2) {
+            if (choice1 === choice2) {
+                return "It's a tie!";
+            }
+            if (choice1 === "rock") {
+                if (choice2 === "scissors") {
+                    return "You win!";
+                } else {
+                    return "You lose! Try again.";
+                }
+            }
+            if (choice1 === "paper") {
+                if (choice2 === "rock") {
+                    return "You win!";
+                } else {
+                    return "You lose! Try again.";
+                }
+            }
+            if (choice1 === "scissors") {
+                if (choice2 === "rock") {
+                    return "You lose! Try again.";
+                } else {
+                    return "You win!";
+                }
+            }
+        };
+        var results = compare(userChoice,computerChoice);
+        document.write("<br><hr><br>" + results);
+    </script>
+
+</div>
+
+</body>
+</html>

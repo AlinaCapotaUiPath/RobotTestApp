@@ -1,0 +1,71 @@
+body,
+html,
+.container,
+.wrapper,
+#app {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background-color: #313247;
+  color: #ffffff;
+}
+
+img {
+  padding-top: 30px;
+  width: 150px;
+  height: 150px;
+}
+
+.addPadding {
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+.center {
+  width: 100%;
+}
+
+.symbol {
+  font-size: 36px;
+  cursor: pointer;
+  padding-top: 5px;
+}
+
+.circle {
+  background-color: #fff;
+  border: 3px solid #234479;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+}
+
+.btn-floating,
+.btn-floating:hover,
+.btn-floating:focus,
+.btn-float:visited {
+  background-color: #eb3541;
+}
+
+h6,
+.title {
+  color: #757a92;
+}
+
+h5 {
+  font-size: 24px;
+}
+
+.scoreBox {
+  width: 25%;
+  margin-left: auto;
+  margin-right: auto;
+  border: 2px solid #757a92;
+  border-radius: 5px;
+}
+.score {
+  font-size: 16px;
+}
